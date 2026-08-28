@@ -1,16 +1,18 @@
 ﻿@page "/Factorial"
 @rendermode InteractiveServer
 
+@using System.Numerics;
+
 <h3>Factorial</h3>
 
-<input type="number" @bind="limit" />
+<input type="number" @bind="limit" @bind:after="Calculate"/>
 <h3>!=@factorial</h3>
-<button class="btn btn-primary" @onclick="Calculate">Calculate</button>
+<button class="btn btn-warning" @onclick="Calculate">Calculate</button>
 
 @code 
 {
 	int limit = 0;
-	int factorial;
+	BigInteger factorial=1;
 	void Calculate()
 	{
 		factorial = 1;
