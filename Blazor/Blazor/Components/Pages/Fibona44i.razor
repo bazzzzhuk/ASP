@@ -1,0 +1,57 @@
+﻿@page "/Fibona44i"
+@rendermode InteractiveServer
+
+<h3>Fibona44i</h3>
+
+@using System.Numerics;
+@using System.Text.RegularExpressions
+
+<input type="number" @bind="end_fibona44i"/>
+<button class="btn btn-warning" @onclick="Fibona44i_f">Расчитать последовательность Фибоначчи</button>
+
+@foreach (var line in MyMultiLineStringLines)
+{
+	<p>@line</p>
+}
+
+
+@code
+{
+	private List<string> MyMultiLineStringLines { get; set; } = new() {};
+	int end_fibona44i = 0;
+	void Fibona44i_f()
+	{
+		MyMultiLineStringLines.Clear();
+		BigInteger temp_value;
+		BigInteger fibona44i_1 = 0;
+		BigInteger fibona44i_2 = 1;
+		MyMultiLineStringLines.Add("0");
+
+		while (end_fibona44i >= fibona44i_2)
+		{
+		MyMultiLineStringLines.Add(fibona44i_2.ToString());
+			temp_value = fibona44i_2;
+			fibona44i_2 += fibona44i_1;
+			fibona44i_1 = temp_value;
+		}
+	}
+
+
+}
+
+@* // nsigned long long end_fibona44i, temp_value, fibona44i_1 = 0, fibona44i_2 = 1;
+// 	cout << "Введите предел счёта последовательности Фибоначчи: "; cin >> end_fibona44i;
+// 	if (end_fibona44i < ULLONG_MAX)
+// 	{
+// 		cout << fibona44i_1 << endl;
+// 		while (end_fibona44i >= fibona44i_2)
+// 		{
+// 			cout << fibona44i_2 << endl;
+// 			temp_value = fibona44i_2;
+// 			fibona44i_2 += fibona44i_1;
+// 			fibona44i_1 = temp_value;
+// 		}
+// 		cout << fibona44i_2 << " < следующее число в последовательности Фибоначчи больше введенного предела!" << endl;
+// 	}
+// 	else { cout << "Введёное число слишком велико..." << endl; }
+// 	cout << endl; *@
