@@ -6,10 +6,10 @@
 @using System.Numerics;
 @using System.Text.RegularExpressions
 
-<input type="number" @bind="end_fibona44i"/>
+<input type="number" @bind="end_fibona44i" @bind:after="Fibona44i_f" />
 <button class="btn btn-warning" @onclick="Fibona44i_f">Расчитать последовательность Фибоначчи</button>
 
-@foreach (string line in List_of_Fibona44i)
+@foreach (string line  in List_of_Fibona44i )
 {
 	<div>@line</div>
 }
