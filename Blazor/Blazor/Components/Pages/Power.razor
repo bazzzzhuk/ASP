@@ -5,20 +5,15 @@
 
 <h3>Power</h3>
 
-<input type="number" @bind="num_in" @bind:after="Power_calc"/>
-<div>^</div>
-<input type="number" @bind="num_power" @bind:after="Power_calc" />
-@* <button class="btn btn-primary" @onclick="Power_calc">Результат</button> *@
-<p role="status">Результат: @rezult</p>
-
+<div class="Power_div">
+	<input type="number" @bind="num_in" @bind:after="Power_calc" />
+	<div>^</div>
+	<input type="number" @bind="num_power" @bind:after="Power_calc" />
+	@* <button class="btn btn-primary" @onclick="Power_calc">Результат</button> *@
+	<p role="status">Результат: @rezult</p>
+</div>
 @code
 {
-	public int num_in = 1;
-	int num_power=1;
-	double rezult=0;
-	void Power_calc()
-	{
-		rezult = Math.Pow(num_in, num_power);
-	}
+	
 }
 

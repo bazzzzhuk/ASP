@@ -1,0 +1,15 @@
+﻿.Power_div{
+	display: flex;
+}
+.Power_div div
+{
+	margin:5px;
+}
+.Power_div p
+{
+	margin:5px;
+}
+.Power_div input
+{
+	width:64px;
+}
