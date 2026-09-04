@@ -2,7 +2,12 @@
 @rendermode InteractiveServer
 
 
-<h2>TaskList</h2>
+<h1>TaskList</h1>
+<div class="Statistics">
+	<h4>Общее количество задач: @list.Count</h4>
+	<h4>Выполнено задач: @list.Where(t => t.DONE==true).ToList().Count</h4>
+	<h4>Осталось задач: @list.Where(t => t.DONE==false).ToList().Count</h4>
+</div>
 
 <input type="text" placeholder="Новая Задача" @bind="description" />
 <button @onclick="AddTask">Добавить</button>
@@ -10,12 +15,21 @@
 <ul>
 	@foreach(TODOlist.Task task in list)
 	{
-		<li>@task.Description</li>
+		<li>
+			<input type="checkbox" @bind="@task.DONE" />
+			<span>@task.Description</span>
+		</li>
 	}
 </ul>
 
 @code {
-	List<TODOlist.Task> list = new List<TODOlist.Task>();
+	List<TODOlist.Task> list = 
+	[
+		new TODOlist.Task { Description = "Покормить кота" },
+		new TODOlist.Task { Description = "Полить цветы", DONE = true },
+		new TODOlist.Task { Description = "Сходить в магаз", DONE = true }
+	];
+	// List<TODOlist.Task> list = new List<TODOlist.Task>();
 	string description = ""; //RAII
 	void AddTask()
 	{
