@@ -5,38 +5,41 @@
 <h1>TaskList</h1>
 <div class="Statistics">
 	<h4>Общее количество задач: @list.Count</h4>
-	<h4>Выполнено задач: @list.Where(t => t.DONE==true).ToList().Count</h4>
-	<h4>Осталось задач: @list.Where(t => t.DONE==false).ToList().Count</h4>
+	<h4>Выполнено задач: @list.Where(t => t.DONE == true).ToList().Count</h4>
+	<h4>Осталось задач: @list.Where(t => t.DONE == false).ToList().Count</h4>
 </div>
 
 <input type="text" placeholder="Новая Задача" @bind="description" />
 <button @onclick="AddTask">Добавить</button>
 
 <ul>
-	@foreach(TODOlist.Task task in list)
+	@foreach (TODOlist.Task task in list)
 	{
 		<li>
-			<input type="checkbox" @bind="@task.DONE" />
-			<span>@task.Description</span>
+			<input type="checkbox" @bind="@task.DONE" id="@task.Description"/>
+			<label for="@task.Description">
+				<span>@task.Description</span>
+				<span>@task.AssignTime</span>
+			</label>
 		</li>
 	}
 </ul>
 
 @code {
-	List<TODOlist.Task> list = 
+	List<TODOlist.Task> list =
 	[
-		new TODOlist.Task { Description = "Покормить кота" },
-		new TODOlist.Task { Description = "Полить цветы", DONE = true },
-		new TODOlist.Task { Description = "Сходить в магаз", DONE = true }
+		new TODOlist.Task { Description = "Покормить кота",					AssignTime = DateTime.Now  },
+		new TODOlist.Task { Description = "Полить цветы",	 DONE = true,	AssignTime = DateTime.Now  },
+		new TODOlist.Task { Description = "Сходить в магаз", DONE = true,	AssignTime = DateTime.Now  }
 	];
 	// List<TODOlist.Task> list = new List<TODOlist.Task>();
 	string description = ""; //RAII
 	void AddTask()
 	{
-		if(!string.IsNullOrEmpty(description)&&!string.IsNullOrWhiteSpace(description))
+		if (!string.IsNullOrEmpty(description) && !string.IsNullOrWhiteSpace(description))
 		{
-			TODOlist.Task task = new TODOlist.Task { Description = description, DONE = false };
-			if(!list.Contains(task))list.Add(task);
+			TODOlist.Task task = new TODOlist.Task { Description = description, DONE = false, AssignTime = DateTime.Now };
+			if (!list.Contains(task)) list.Add(task);
 			description = "";
 		}
 	}
