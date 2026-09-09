@@ -1,0 +1,5 @@
+﻿.details-container
+{
+	display:inline-flex;
+	justify-content:space-between;
+}
