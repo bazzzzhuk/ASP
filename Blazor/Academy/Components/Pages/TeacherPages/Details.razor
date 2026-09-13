@@ -1,0 +1,62 @@
+﻿@page "/teachers/details"
+@using Microsoft.EntityFrameworkCore
+@using Academy.Models
+@inject IDbContextFactory<Academy.Data.AcademyContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Teacher</h2>
+    <hr />
+    @if (teacher is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">Last_name</dt>
+            <dd class="col-sm-10">@teacher.Last_name</dd>
+            <dt class="col-sm-2">First_name</dt>
+            <dd class="col-sm-10">@teacher.First_name</dd>
+            <dt class="col-sm-2">Middle_name</dt>
+            <dd class="col-sm-10">@teacher.Middle_name</dd>
+            <dt class="col-sm-2">BirthDate</dt>
+            <dd class="col-sm-10">@teacher.BirthDate</dd>
+            <dt class="col-sm-2">Email</dt>
+            <dd class="col-sm-10">@teacher.Email</dd>
+            <dt class="col-sm-2">Phone</dt>
+            <dd class="col-sm-10">@teacher.Phone</dd>
+            <dt class="col-sm-2">Photo</dt>
+            <dd class="col-sm-10">@teacher.Photo</dd>
+            <dt class="col-sm-2">Work_since</dt>
+            <dd class="col-sm-10">@teacher.Work_since</dd>
+            <dt class="col-sm-2">Rate</dt>
+            <dd class="col-sm-10">@teacher.Rate</dd>
+        </dl>
+        <div>
+            <a href="@($"/teachers/edit?teacher_id={teacher.Teacher_id}")">Edit</a> |
+            <a href="@($"/teachers")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Teacher? teacher;
+
+    [SupplyParameterFromQuery]
+    private int Teacher_id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        teacher = await context.Teachers.FirstOrDefaultAsync(m => m.Teacher_id == Teacher_id);
+
+        if (teacher is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}
