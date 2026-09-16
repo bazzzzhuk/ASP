@@ -17,8 +17,8 @@
             <ValidationSummary class="text-danger" role="alert"/>
             <div class="mb-3">
                 <label for="direction_name" class="form-label">Direction_name:</label> 
-                <InputText id="direction_name" @bind-Value="Direction.Direction_name" class="form-control" /> 
-                <ValidationMessage For="() => Direction.Direction_name" class="text-danger" /> 
+                <InputText id="direction_name" @bind-Value="Direction.direction_name" class="form-control" /> 
+                <ValidationMessage For="() => Direction.direction_name" class="text-danger" /> 
             </div>        
             <button type="submit" class="btn btn-primary">Create</button>
         </EditForm>

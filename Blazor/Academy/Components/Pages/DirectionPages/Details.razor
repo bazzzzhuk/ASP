@@ -18,8 +18,14 @@
     else {
         <dl class="row">
             <dt class="col-sm-2">Direction_name</dt>
-            <dd class="col-sm-10">@direction.Direction_name</dd>
+            <dd class="col-sm-10">@direction.direction_name</dd>
         </dl>
+        <ul>
+            @foreach(Group group in direction.Groups)
+            {
+                <li>@group.group_name</li>
+            }
+        </ul>
         <div>
             <a href="@($"/directions/edit?direction_id={direction.Direction_id}")">Edit</a> |
             <a href="@($"/directions")">Back to List</a>
@@ -36,7 +42,11 @@
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        direction = await context.Directions.FirstOrDefaultAsync(m => m.Direction_id == Direction_id);
+        // direction = await context.Directions.FirstOrDefaultAsync(m => m.Direction_id == Direction_id);
+        direction = await context
+                            .Directions
+                            .Include(d => d.Groups)
+                            .FirstOrDefaultAsync(m => m.Direction_id == Direction_id);
 
         if (direction is null)
         {

@@ -17,19 +17,14 @@
     }
     else {
         <dl class="row">
-            <dt class="col-sm-2">Group_name</dt>
-            <dd class="col-sm-10">@group.Group_name</dd>
-            <dt class="col-sm-2">Direction</dt>
-            <dd class="col-sm-10">@group.Direction</dd>
-            <dt class="col-sm-2">Weekdays</dt>
-            <dd class="col-sm-10">@group.Weekdays</dd>
-            <dt class="col-sm-2">start_time</dt>
-            <dd class="col-sm-10">@group.start_time</dd>
-            <dt class="col-sm-2">start_date</dt>
-            <dd class="col-sm-10">@group.start_date</dd>
+            <dt class="col-sm-2">Group_name</dt><dd class="col-sm-10">@group.group_name</dd>
+            <dt class="col-sm-2">Direction</dt><dd class="col-sm-10">@group.Direction.direction_name</dd>
+            <dt class="col-sm-2">Weekdays</dt><dd class="col-sm-10">@group.weekdays</dd>
+            <dt class="col-sm-2">start_time</dt><dd class="col-sm-10">@group.start_time</dd>
+            <dt class="col-sm-2">start_date</dt><dd class="col-sm-10">@group.start_date</dd>
         </dl>
         <div>
-            <a href="@($"/groups/edit?group_id={group.Group_id}")">Edit</a> |
+            <a href="@($"/groups/edit?group_id={group.group_id}")">Edit</a> |
             <a href="@($"/groups")">Back to List</a>
         </div>
     }
@@ -44,7 +39,11 @@
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        group = await context.Groups.FirstOrDefaultAsync(m => m.Group_id == Group_id);
+        group = await context
+                        .Groups
+                        .Include(g => g.Direction)
+                        .FirstOrDefaultAsync(m => m.group_id == Group_id);
+        // group = await context.Groups.FirstOrDefaultAsync(m => m.group_id == Group_id);
 
         if (group is null)
         {

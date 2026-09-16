@@ -21,21 +21,30 @@ else
             <EditForm method="post" Model="Group" OnValidSubmit="UpdateGroup" FormName="edit" Enhance>
                 <DataAnnotationsValidator />
                 <ValidationSummary role="alert"/>
-                <input type="hidden" name="Group.Group_id" value="@Group.Group_id" />
+                <input type="hidden" name="Group.Group_id" value="@Group.group_id" />
                 <div class="mb-3">
                     <label for="group_name" class="form-label">Group_name:</label>
-                    <InputText id="group_name" @bind-Value="Group.Group_name" class="form-control" />
-                    <ValidationMessage For="() => Group.Group_name" class="text-danger" />
+                    <InputText id="group_name" @bind-Value="Group.group_name" class="form-control" />
+                    <ValidationMessage For="() => Group.group_name" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="direction" class="form-label">Direction:</label>
-                    <InputNumber id="direction" @bind-Value="Group.Direction" class="form-control" />
-                    <ValidationMessage For="() => Group.Direction" class="text-danger" />
+                    <InputSelect id="direction" @bind-Value="Group.direction" class="form-control">
+                        @using (Academy.Data.AcademyContext context = DbFactory.CreateDbContext())
+                        {
+                            @foreach(Direction d in context.Directions)
+                            {
+                                <option value="@d.Direction_id">@d.direction_name</option>
+                            }
+                        }
+                    </InputSelect>
+                    @* <InputNumber id="direction" @bind-Value="Group.direction" class="form-control" /> *@
+                    <ValidationMessage For="() => Group.direction" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="weekdays" class="form-label">Weekdays:</label>
-                    <InputNumber id="weekdays" @bind-Value="Group.Weekdays" class="form-control" />
-                    <ValidationMessage For="() => Group.Weekdays" class="text-danger" />
+                    <InputNumber id="weekdays" @bind-Value="Group.weekdays" class="form-control" />
+                    <ValidationMessage For="() => Group.weekdays" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="start_time" class="form-label">start_time:</label>
@@ -67,7 +76,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        Group ??= await context.Groups.FirstOrDefaultAsync(m => m.Group_id == Group_id);
+        Group ??= await context.Groups.FirstOrDefaultAsync(m => m.group_id == Group_id);
 
         if (Group is null)
         {
@@ -88,7 +97,7 @@ else
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!GroupExists(Group!.Group_id))
+            if (!GroupExists(Group!.group_id))
             {
                 NavigationManager.NavigateTo("notfound");
             }
@@ -104,6 +113,6 @@ else
     private bool GroupExists(int group_id)
     {
         using var context = DbFactory.CreateDbContext();
-        return context.Groups.Any(e => e.Group_id == group_id);
+        return context.Groups.Any(e => e.group_id == group_id);
     }
 }

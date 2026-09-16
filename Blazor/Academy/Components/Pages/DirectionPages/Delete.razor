@@ -19,7 +19,7 @@
     else {
         <dl class="row">
             <dt class="col-sm-2">Direction_name</dt>
-            <dd class="col-sm-10">@direction.Direction_name</dd>
+            <dd class="col-sm-10">@direction.direction_name</dd>
         </dl>
         <EditForm method="post" Model="direction" OnValidSubmit="DeleteDirection" FormName="delete" Enhance>
             <button type="submit" class="btn btn-danger" disabled="@(direction is null)">Delete</button> |

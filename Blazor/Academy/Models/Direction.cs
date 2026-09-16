@@ -8,6 +8,8 @@ namespace Academy.Models
 		[Key]
 		[Column(TypeName = "TINYINT")]
 		public int Direction_id { get; set; }
-		public string Direction_name { get; set; }
+		public string direction_name { get; set; }
+
+		public ICollection<Group> Groups { get; set; }
 	}
 }

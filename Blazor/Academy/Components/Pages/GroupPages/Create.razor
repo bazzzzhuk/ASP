@@ -17,18 +17,28 @@
             <ValidationSummary class="text-danger" role="alert"/>
             <div class="mb-3">
                 <label for="group_name" class="form-label">Group_name:</label> 
-                <InputText id="group_name" @bind-Value="Group.Group_name" class="form-control" /> 
-                <ValidationMessage For="() => Group.Group_name" class="text-danger" /> 
+                <InputText id="group_name" @bind-Value="Group.group_name" class="form-control" /> 
+                <ValidationMessage For="() => Group.group_name" class="text-danger" /> 
             </div>        
             <div class="mb-3">
                 <label for="direction" class="form-label">Direction:</label> 
-                <InputNumber id="direction" @bind-Value="Group.Direction" class="form-control" /> 
-                <ValidationMessage For="() => Group.Direction" class="text-danger" /> 
+                <InputSelect id="direction" @bind-Value="Group.direction" class="form-control">
+                    <option disabled selected>---Введите направление обучения---</option disabled>
+                    @using (Academy.Data.AcademyContext context = DbFactory.CreateDbContext())
+                    {
+                        @foreach(Direction d in context.Directions)
+                        {
+                            <option value="@d.Direction_id">@d.direction_name</option>
+                        }
+                    }
+                </InputSelect>
+                @* <InputNumber id="direction" @bind-Value="Group.direction" class="form-control" />  *@
+                <ValidationMessage For="() => Group.direction" class="text-danger" /> 
             </div>        
             <div class="mb-3">
                 <label for="weekdays" class="form-label">Weekdays:</label> 
-                <InputNumber id="weekdays" @bind-Value="Group.Weekdays" class="form-control" /> 
-                <ValidationMessage For="() => Group.Weekdays" class="text-danger" /> 
+                <InputNumber id="weekdays" @bind-Value="Group.weekdays" class="form-control" /> 
+                <ValidationMessage For="() => Group.weekdays" class="text-danger" /> 
             </div>        
             <div class="mb-3">
                 <label for="start_time" class="form-label">start_time:</label> 
@@ -55,7 +65,8 @@
 
     protected override void OnInitialized() => Group ??= new();
 
-    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    // To protect from overposting attacks,
+    //  see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
     private async Task AddGroup()
     {
         using var context = DbFactory.CreateDbContext();
