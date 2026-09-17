@@ -6,6 +6,7 @@
 @implements IAsyncDisposable
 @inject IDbContextFactory<Academy.Data.AcademyContext> DbFactory
 
+@rendermode InteractiveServer
 
 @* <PageTitle>Index</PageTitle> *@
 
@@ -15,21 +16,47 @@
 	<a href="students/create">Создать нового Студента</a>
 </p>
 
-<QuickGrid Class="table" Items="students">
-	<PropertyColumn property = "student => student.FullName" />
-	<PropertyColumn property = "student => student.Age" />
+<div class="controls">
+	<form action="/students">
+		<input type="search" name="studFilter" />
+		<input type="submit" value="Поиск" class="btn btn-primary" />
+	</form>
+	<div>
+		<label for="items-per-page">Items per page:</label>
+		<select id="items-per-page" @bind="pagination.ItemsPerPage">
+			<option value="5">5</option>
+			<option value="7">7</option>
+			<option value="9">9</option>
+			<option value="12">12</option>
+		</select>
+	</div>
+</div>
 
-	@* <PropertyColumn Property="student => student.birth_date" /> *@
-	<PropertyColumn Property="student => student.Group.group_name" />
-	<PropertyColumn Property="student => student.Group.Direction.direction_name" /> 
+<QuickGrid Class="table" Items="FilteredStudent" Pagination="pagination">
+	<PropertyColumn Property="student => student.last_name" Sortable="true" />
+	<PropertyColumn Property="student => student.first_name" Sortable="true" />
+	<PropertyColumn Property="student => student.middle_name" Sortable="true" />
+	<PropertyColumn property = "student => student.FullName" Sortable="true" />
+	<PropertyColumn property = "student => student.Age" Sortable="true" />
+
+	<PropertyColumn Property="student => student.birth_date" />
+	<PropertyColumn Property="student => student.Group.group_name" Sortable="true" />
+	<PropertyColumn Property="student => student.Group.Direction.direction_name" Sortable="true" />
 	<TemplateColumn Context="student">
 		<a href="@($"students/details?stud_id={student.stud_id}")">Details</a>
 	</TemplateColumn>
 </QuickGrid>
+<Paginator State="pagination" />
 
 @code {
 	private AcademyContext context = default!;
 	IQueryable<Student> students = default!;
+	[SupplyParameterFromQuery]
+
+	string? StudFilter { get; set; }
+	IQueryable<Student> FilteredStudent => students.Where(s => s.last_name.Contains(StudFilter ?? string.Empty));
+
+	PaginationState pagination = new PaginationState { ItemsPerPage = 5 };
 
 	protected override void OnInitialized()
 	{

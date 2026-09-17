@@ -7,7 +7,7 @@ namespace Academy.Models
 	{
 		[Required]
 		[StringLength(50, MinimumLength = 2)]
-		[RegularExpression("^[A-ZА-Я][a-zа-я]+$")]
+		//[RegularExpression("^[A-ZА-Я][a-zа-я]+$")]
 		public string last_name { get; set; }
 
 		[Required]
