@@ -24,6 +24,12 @@ else
                 <input type="hidden" name="Student.stud_id" value="@Student.stud_id" />
                 <div class="mb-3">
                 <span class="text-danger">*</span>
+                    <label for="group" class="form-label">group:</label>
+                    <InputNumber id="group" @bind-Value="Student.group" class="form-control" aria-required="true"/>
+                    <ValidationMessage For="() => Student.group" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                <span class="text-danger">*</span>
                     <label for="last_name" class="form-label">last_name:</label>
                     <InputText id="last_name" @bind-Value="Student.last_name" class="form-control" aria-required="true"/>
                     <ValidationMessage For="() => Student.last_name" class="text-danger" />
@@ -41,9 +47,9 @@ else
                 </div>
                 <div class="mb-3">
                 <span class="text-danger">*</span>
-                    <label for="birthdate" class="form-label">BirthDate:</label>
-                    <InputDate id="birthdate" @bind-Value="Student.BirthDate" class="form-control" aria-required="true"/>
-                    <ValidationMessage For="() => Student.BirthDate" class="text-danger" />
+                    <label for="birth_date" class="form-label">birth_date:</label>
+                    <InputDate id="birth_date" @bind-Value="Student.birth_date" class="form-control" aria-required="true"/>
+                    <ValidationMessage For="() => Student.birth_date" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">email:</label>
@@ -56,15 +62,10 @@ else
                     <ValidationMessage For="() => Student.phone" class="text-danger" />
                 </div>
                 @* <div class="mb-3">
-                    <label for="photo" class="form-label">Photo:</label>
-                    <InputText id="photo" @bind-Value="Student.Photo" class="form-control" />
-                    <ValidationMessage For="() => Student.Photo" class="text-danger" />
+                    <label for="photo" class="form-label">photo:</label>
+                    <InputText id="photo" @bind-Value="Student.photo" class="form-control" />
+                    <ValidationMessage For="() => Student.photo" class="text-danger" />
                 </div> *@
-                <div class="mb-3">
-                    <label for="group" class="form-label">group:</label>
-                    <InputNumber id="group" @bind-Value="Student.group" class="form-control" />
-                    <ValidationMessage For="() => Student.group" class="text-danger" />
-                </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </EditForm>
         </div>
