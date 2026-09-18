@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Academy.Models
 {
@@ -20,10 +22,12 @@ namespace Academy.Models
 		[DataType(DataType.Date)]
 		public DateOnly birth_date { get; set; }
 
-		[EmailAddress]
+		[EmailAddress()]
+		//[Required(AllowEmptyStrings = true)]
 		public string? email { get; set; }
 
 		[Phone]
+		//[Required(AllowEmptyStrings = true)]
 		public string? phone { get; set; }
 
 		[Column("photo", TypeName = "IMAGE")]
