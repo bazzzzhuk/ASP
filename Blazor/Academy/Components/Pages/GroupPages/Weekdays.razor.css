@@ -1,0 +1,13 @@
+﻿ul
+{
+	list-style:none;
+	display:flex;
+	justify-content:space-around;
+	padding: 5px;
+	/*border: 1px solid gray;*/
+}
+li
+{
+	display:flex;
+	margin: 0px;
+}
