@@ -17,7 +17,6 @@ namespace Academy.Models
 		[Column(TypeName = "TINYINT")]
 		public int? weekdays { get; set; }
 
-		[Column(TypeName = "TIME(0)")]
 		public TimeOnly? start_time { get; set; }
 
 		[RangeAttribute(typeof(DateOnly), "1900-12-31", "9999-12-31")]
