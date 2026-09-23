@@ -19,7 +19,7 @@
         <dl class="row">
             <dt class="col-sm-2">Group_name</dt><dd class="col-sm-10">@group.group_name</dd>
             <dt class="col-sm-2">Direction</dt><dd class="col-sm-10">@group.Direction.direction_name</dd>
-            <dt class="col-sm-2">Weekdays</dt><dd class="col-sm-10">@group.weekdays</dd>
+            <dt class="col-sm-2">Weekdays</dt><dd class="col-sm-10">@(new Week((int)group.weekdays))</dd>
             <dt class="col-sm-2">start_time</dt><dd class="col-sm-10">@group.start_time</dd>
             <dt class="col-sm-2">start_date</dt><dd class="col-sm-10">@group.start_date</dd>
         </dl>
