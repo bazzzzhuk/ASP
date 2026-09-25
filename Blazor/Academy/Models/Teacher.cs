@@ -16,5 +16,6 @@ namespace Academy.Models
 		public decimal? Rate { get; set; }
 
 		//Navigation properties:
+		public ICollection<TeachersDisciplinesRelation> DisciplinesRelations { get; set; } = default!;
 	}
 }
