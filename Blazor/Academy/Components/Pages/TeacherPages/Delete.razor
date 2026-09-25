@@ -18,40 +18,40 @@
     }
     else {
         <dl class="row">
-            <dt class="col-sm-2">Last_name</dt>
-            <dd class="col-sm-10">@teacher.Last_name</dd>
-        </dl>
-        <dl class="row">
-            <dt class="col-sm-2">First_name</dt>
-            <dd class="col-sm-10">@teacher.First_name</dd>
-        </dl>
-        <dl class="row">
-            <dt class="col-sm-2">Middle_name</dt>
-            <dd class="col-sm-10">@teacher.Middle_name</dd>
-        </dl>
-        <dl class="row">
-            <dt class="col-sm-2">BirthDate</dt>
-            <dd class="col-sm-10">@teacher.BirthDate</dd>
-        </dl>
-        <dl class="row">
-            <dt class="col-sm-2">Email</dt>
-            <dd class="col-sm-10">@teacher.Email</dd>
-        </dl>
-        <dl class="row">
-            <dt class="col-sm-2">Phone</dt>
-            <dd class="col-sm-10">@teacher.Phone</dd>
-        </dl>
-        <dl class="row">
-            <dt class="col-sm-2">Photo</dt>
-            <dd class="col-sm-10">@teacher.Photo</dd>
-        </dl>
-        <dl class="row">
-            <dt class="col-sm-2">Work_since</dt>
-            <dd class="col-sm-10">@teacher.Work_since</dd>
+            <dt class="col-sm-2">work_since</dt>
+            <dd class="col-sm-10">@teacher.work_since</dd>
         </dl>
         <dl class="row">
             <dt class="col-sm-2">Rate</dt>
             <dd class="col-sm-10">@teacher.Rate</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">last_name</dt>
+            <dd class="col-sm-10">@teacher.last_name</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">first_name</dt>
+            <dd class="col-sm-10">@teacher.first_name</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">middle_name</dt>
+            <dd class="col-sm-10">@teacher.middle_name</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">birth_date</dt>
+            <dd class="col-sm-10">@teacher.birth_date</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">email</dt>
+            <dd class="col-sm-10">@teacher.email</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">phone</dt>
+            <dd class="col-sm-10">@teacher.phone</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">photo</dt>
+            <dd class="col-sm-10">@teacher.photo</dd>
         </dl>
         <EditForm method="post" Model="teacher" OnValidSubmit="DeleteTeacher" FormName="delete" Enhance>
             <button type="submit" class="btn btn-danger" disabled="@(teacher is null)">Delete</button> |
@@ -69,7 +69,7 @@
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        teacher = await context.Teachers.FirstOrDefaultAsync(m => m.Teacher_id == Teacher_id);
+        teacher = await context.Teachers.FirstOrDefaultAsync(m => m.teacher_id == Teacher_id);
 
         if (teacher is null)
         {

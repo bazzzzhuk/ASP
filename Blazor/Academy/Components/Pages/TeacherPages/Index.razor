@@ -6,39 +6,45 @@
 @implements IAsyncDisposable
 @inject IDbContextFactory<Academy.Data.AcademyContext> DbFactory
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Преподаватели</PageTitle>
 
-<h1>Index</h1>
+<h1>Преподаватели</h1>
 
-<p>
-    <a href="teachers/create">Create New</a>
-</p>
+<h5>
+	<a href="teachers/create">Создать</a>
+</h5>
 
 <QuickGrid Class="table" Items="context.Teachers">
-    <PropertyColumn Property="teacher => teacher.Last_name" />
-    <PropertyColumn Property="teacher => teacher.First_name" />
-    <PropertyColumn Property="teacher => teacher.Middle_name" />
-    <PropertyColumn Property="teacher => teacher.BirthDate" />
-    <PropertyColumn Property="teacher => teacher.Email" />
-    <PropertyColumn Property="teacher => teacher.Phone" />
-    <PropertyColumn Property="teacher => teacher.Photo" />
-    <PropertyColumn Property="teacher => teacher.Work_since" />
-    <PropertyColumn Property="teacher => teacher.Rate" />
+	@*  <PropertyColumn Property="teacher => teacher.last_name" />
+    <PropertyColumn Property="teacher => teacher.first_name" />
+    <PropertyColumn Property="teacher => teacher.middle_name" /> *@
+	@* <TemplateColumn Context="teacher">
+		<a href="@($"teachers/details?teacher_id={teacher.teacher_id}")">@teacher.FullName</a>
+	</TemplateColumn> *@
+	<TemplateColumn Context="teacher">
+		<a href="@($"teachers/details?teacher_id={teacher.teacher_id}")">@teacher.FullName</a>
+	</TemplateColumn>
+	<PropertyColumn Property="teacher => teacher.birth_date" />
+	@* <PropertyColumn Property="teacher => teacher.email" />
+    <PropertyColumn Property="teacher => teacher.phone" />
+    <PropertyColumn Property="teacher => teacher.photo" /> *@
+	<PropertyColumn Property="teacher => teacher.work_since" />
+	<PropertyColumn Property="teacher => teacher.Rate" />
 
-    <TemplateColumn Context="teacher">
-        <a href="@($"teachers/edit?teacher_id={teacher.Teacher_id}")">Edit</a> |
-        <a href="@($"teachers/details?teacher_id={teacher.Teacher_id}")">Details</a> |
-        <a href="@($"teachers/delete?teacher_id={teacher.Teacher_id}")">Delete</a>
-    </TemplateColumn>
+	@* <TemplateColumn Context="teacher">
+		<a href="@($"teachers/edit?teacher_id={teacher.Teacher_id}")">Edit</a> |
+		<a href="@($"teachers/details?teacher_id={teacher.Teacher_id}")">Details</a> |
+		<a href="@($"teachers/delete?teacher_id={teacher.Teacher_id}")">Delete</a>
+	</TemplateColumn> *@
 </QuickGrid>
 
 @code {
-    private AcademyContext context = default!;
+	private AcademyContext context = default!;
 
-    protected override void OnInitialized()
-    {
-        context = DbFactory.CreateDbContext();
-    }
+	protected override void OnInitialized()
+	{
+		context = DbFactory.CreateDbContext();
+	}
 
-    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+	public async ValueTask DisposeAsync() => await context.DisposeAsync();
 }
