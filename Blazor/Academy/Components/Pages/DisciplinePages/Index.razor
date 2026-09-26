@@ -15,14 +15,17 @@
 </p>
 
 <QuickGrid Class="table" Items="context.Disciplines">
-    <PropertyColumn Property="discipline => discipline.discipline_name" />
+    <TemplateColumn Context="discipline">
+        <a href="@($"disciplines/details?discipline_id={discipline.discipline_id}")">@discipline.discipline_name</a>
+	</TemplateColumn>
+    @* <PropertyColumn Property="discipline => discipline.discipline_name" /> *@
     <PropertyColumn Property="discipline => discipline.number_of_lessons" />
 
-    <TemplateColumn Context="discipline">
+    @* <TemplateColumn Context="discipline">
         <a href="@($"disciplines/edit?discipline_id={discipline.discipline_id}")">Edit</a> |
         <a href="@($"disciplines/details?discipline_id={discipline.discipline_id}")">Details</a> |
         <a href="@($"disciplines/delete?discipline_id={discipline.discipline_id}")">Delete</a>
-    </TemplateColumn>
+    </TemplateColumn> *@
 </QuickGrid>
 
 @code {

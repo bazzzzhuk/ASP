@@ -22,11 +22,11 @@ namespace Academy.Models
 		[DataType(DataType.Date)]
 		public DateOnly birth_date { get; set; }
 
-		[EmailAddress()]
+		//[EmailAddress()]
 		//[Required(AllowEmptyStrings = true)]
 		public string? email { get; set; }
 
-		[Phone]
+		//[Phone]
 		//[Required(AllowEmptyStrings = true)]
 		public string? phone { get; set; }
 
@@ -42,9 +42,10 @@ namespace Academy.Models
 		public int Age
 		{
 			get => CalculateAge(birth_date);
-			
-	}
-	public static int CalculateAge(DateOnly dateOfBirth)
+
+		}
+	
+		public static int CalculateAge(DateOnly dateOfBirth)
 		{
 			// Получаем текущую дату в формате DateOnly
 			var today = DateOnly.FromDateTime(DateTime.Today);
@@ -59,7 +60,6 @@ namespace Academy.Models
 			{
 				age--;
 			}
-
 			return age;
 		}
 	}

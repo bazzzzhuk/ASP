@@ -10,6 +10,7 @@ namespace Academy.Models
 		[Column("teacher", TypeName = "SMALLINT")]
 		[ForeignKey(nameof(Teacher))]
 		public int teacher { get; set; }
+
 		[Column("discipline", TypeName ="SMALLINT")]
 		[ForeignKey(nameof(Discipline))]
 		public int discipline { get; set; }

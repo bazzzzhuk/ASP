@@ -26,19 +26,40 @@
             <a href="@($"/disciplines/edit?discipline_id={discipline.discipline_id}")">Edit</a> |
             <a href="@($"/disciplines")">Back to List</a>
         </div>
+        <h3>Преподаватели</h3>
+        <ul>
+            @foreach (TeachersDisciplinesRelation tdr in teacher.DisciplinesRelations)
+            {
+                <li>
+                    <a href="@($"/teachers/details?teacher_id={tdr.Teacher?.teacher_id}")"
+                       target="_blank">
+                        @tdr.Teacher?.FullName
+                    </a>
+                </li>
+            }
+        </ul>
     }
 </div>
 
 @code {
     private Discipline? discipline;
+    private Teacher? teacher;
 
     [SupplyParameterFromQuery]
     private int discipline_id { get; set; }
+    [SupplyParameterFromQuery]
+    private int Teacher_id { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        discipline = await context.Disciplines.FirstOrDefaultAsync(m => m.discipline_id == discipline_id);
+        discipline = await context.Disciplines
+                                 .FirstOrDefaultAsync(m => m.discipline_id == discipline_id);
+        teacher = await context.Teachers
+                                .Include(t => t.DisciplinesRelations)
+                                .ThenInclude(tdr => tdr.Discipline)
+                                .FirstOrDefaultAsync(m => m.teacher_id == Teacher_id);
+
 
         if (discipline is null)
         {

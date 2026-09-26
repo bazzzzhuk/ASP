@@ -29,6 +29,9 @@
     <PropertyColumn Property="teacher => teacher.phone" />
     <PropertyColumn Property="teacher => teacher.photo" /> *@
 	<PropertyColumn Property="teacher => teacher.work_since" />
+	<TemplateColumn Title="Стаж" Context="teacher">
+		@teacher.exp
+	</TemplateColumn>
 	<PropertyColumn Property="teacher => teacher.Rate" />
 
 	@* <TemplateColumn Context="teacher">

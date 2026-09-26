@@ -40,7 +40,10 @@
 	<TemplateColumn Context="student" Title="Student" Sortable="true" SortBy="sortBy"> 
 		@student.FullName
 	</TemplateColumn>
-	<PropertyColumn property = "student => student.Age" Sortable="true" />
+	<TemplateColumn Context="student" Title="Age" Sortable="true" SortBy="sortBy"> 
+		@student.Age
+	</TemplateColumn>
+	@* <PropertyColumn property = "student => student.Age" Sortable="true" /> *@
 
 	<PropertyColumn Property="student => student.birth_date" />
 	<PropertyColumn Property="student => student.Group.group_name" Sortable="true" />
