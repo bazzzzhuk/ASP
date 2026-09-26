@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Academy.Models
 {
@@ -15,5 +16,7 @@ namespace Academy.Models
 		[Required]
 		[Column(TypeName ="TINYINT")]
 		public int number_of_lessons { get; set; }
+		[JsonIgnore]
+		public ICollection<TeachersDisciplinesRelation> TeachersRelations { get; set; } = [];
 	}
 }

@@ -35,13 +35,27 @@
 		</div>
 		<h3>Дисциплины</h3>
 		<ul>
-			@foreach (TeachersDisciplinesRelation tdr in teacher.DisciplinesRelations)
+			@* @foreach (TeachersDisciplinesRelation tdr in teacher.DisciplinesRelations)
 			{
 				<li>
 					<a href="@($"/disciplines/details?discipline_id={tdr.Discipline.discipline_id}")" 
 						target="_blank">
 						@tdr.Discipline.discipline_name</a>
 					</li>
+			} *@
+			@foreach (var relation in teacher.DisciplinesRelations)
+			{
+				var discipline = relation.Discipline;
+
+				if (discipline is not null)
+				{
+					<li>
+						<a href="@($"/disciplines/details?discipline_id={discipline.discipline_id}")"
+						   target="_blank">
+							@discipline.discipline_name
+						</a>
+					</li>
+				}
 			}
 		</ul>
 	}

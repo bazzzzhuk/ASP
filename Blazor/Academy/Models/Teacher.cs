@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Academy.Models
 {
@@ -20,7 +21,8 @@ namespace Academy.Models
 		}
 
 		//Navigation properties:
-		public ICollection<TeachersDisciplinesRelation> DisciplinesRelations { get; set; } = default!;
+		[JsonIgnore]
+		public ICollection<TeachersDisciplinesRelation> DisciplinesRelations { get; set; } = [];
 		public static int CalculateExp(DateOnly work_since)
 		{
 			DateOnly endDate = DateOnly.FromDateTime(DateTime.Today);

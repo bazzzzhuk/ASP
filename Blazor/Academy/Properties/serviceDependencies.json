@@ -1,8 +1,14 @@
 {
-  "dependencies": {
-    "mssql1": {
-      "type": "mssql",
-      "connectionId": "ConnectionStrings:AcademyContext"
+    "dependencies": {
+        "mssql1": {
+            "type": "mssql",
+            "connectionId": "ConnectionStrings:AcademyContext"
+        }
+    },
+    "builder.Services.AddControllers()" ".AddJsonOptions(options",
+    "=>" {
+        "options.JsonSerializerOptions.ReferenceHandler" "=",
+        "ReferenceHandler.IgnoreCycles;"
     }
-  }
+    ");",
 }

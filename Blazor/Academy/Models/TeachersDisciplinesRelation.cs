@@ -1,22 +1,27 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace Academy.Models
 {
-	[PrimaryKey("teacher","discipline")]
+	[PrimaryKey("teacher", "discipline")]
 	public class TeachersDisciplinesRelation
 	{
+		[JsonIgnore]
 		[Column("teacher", TypeName = "SMALLINT")]
 		[ForeignKey(nameof(Teacher))]
 		public int teacher { get; set; }
 
-		[Column("discipline", TypeName ="SMALLINT")]
+		[JsonIgnore]
+		[Column("discipline", TypeName = "SMALLINT")]
 		[ForeignKey(nameof(Discipline))]
 		public int discipline { get; set; }
 
 		//navigation properties:
-		public Teacher Teacher { get; set; }
-		public Discipline Discipline { get; set; }
+		[JsonIgnore]
+		public Teacher Teacher { get; set; } = null!;
+		[JsonIgnore]
+		public Discipline Discipline { get; set; } = null!;
 	}
 }
