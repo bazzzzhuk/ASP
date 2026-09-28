@@ -22,7 +22,7 @@ namespace Academy.Models
 
 		//Navigation properties:
 		[JsonIgnore]
-		public ICollection<TeachersDisciplinesRelation> DisciplinesRelations { get; set; } = [];
+		public ICollection<TeachersDisciplinesRelation> DisciplinesRelations { get; set; } = default!;
 		public static int CalculateExp(DateOnly work_since)
 		{
 			DateOnly endDate = DateOnly.FromDateTime(DateTime.Today);
