@@ -22,7 +22,7 @@ namespace ContosoUniversity.Views.Courses
         // GET: Courses
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Course.ToListAsync());
+            return View(await _context.Courses.ToListAsync());
         }
 
         // GET: Courses/Details/5
@@ -33,7 +33,7 @@ namespace ContosoUniversity.Views.Courses
                 return NotFound();
             }
 
-            var course = await _context.Course
+            var course = await _context.Courses
                 .FirstOrDefaultAsync(m => m.CourseID == id);
             if (course == null)
             {
@@ -73,7 +73,7 @@ namespace ContosoUniversity.Views.Courses
                 return NotFound();
             }
 
-            var course = await _context.Course.FindAsync(id);
+            var course = await _context.Courses.FindAsync(id);
             if (course == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace ContosoUniversity.Views.Courses
                 return NotFound();
             }
 
-            var course = await _context.Course
+            var course = await _context.Courses
                 .FirstOrDefaultAsync(m => m.CourseID == id);
             if (course == null)
             {
@@ -139,10 +139,10 @@ namespace ContosoUniversity.Views.Courses
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var course = await _context.Course.FindAsync(id);
+            var course = await _context.Courses.FindAsync(id);
             if (course != null)
             {
-                _context.Course.Remove(course);
+                _context.Courses.Remove(course);
             }
 
             await _context.SaveChangesAsync();
@@ -151,7 +151,7 @@ namespace ContosoUniversity.Views.Courses
 
         private bool CourseExists(int id)
         {
-            return _context.Course.Any(e => e.CourseID == id);
+            return _context.Courses.Any(e => e.CourseID == id);
         }
     }
 }

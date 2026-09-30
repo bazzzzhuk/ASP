@@ -7,10 +7,10 @@ namespace ContosoUniversity.Models
 	{
 		[DatabaseGenerated(DatabaseGeneratedOption.None)]   //Отключает автоинкремент в таблице
 		public int CourseID { get; set; }
-		public string Title { get; set; }
+		public string? Title { get; set; }
 		public int Credits { get; set; }
 
 		//Navigation properties:
-		//public ICollection<Enrollment> Enrollments { get; set; }
+		public ICollection<Enrollment>? Enrollments { get; set; }
 	}
 }
