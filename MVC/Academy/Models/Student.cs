@@ -12,16 +12,18 @@ namespace Academy.Models
 
 		[StringLength(50, MinimumLength = 2)]
 		//[RegularExpression("^[A-ZА-Я][a-zа-я]+$")]
+		[Display(Name = "Фамилия")]
 		public string last_name { get; set; }
 
 		[Required]
 		[StringLength(50, MinimumLength = 2)]
+		[Display(Name = "Имя")]
 		public string first_name { get; set; }
-
+		[Display(Name = "Отчество")]
 		public string? middle_name { get; set; }
-
 		[Required]
 		[DataType(DataType.Date)]
+		[Display(Name = "ДР")]
 		public DateOnly birth_date { get; set; }
 
 		[EmailAddress()]
@@ -30,9 +32,11 @@ namespace Academy.Models
 
 		[Phone]
 		//[Required(AllowEmptyStrings = true)]
+		[Display(Name = "Телефон")]
 		public string? phone { get; set; }
 
 		[Column("photo", TypeName = "IMAGE")]
+		[Display(Name = "Фото")]
 		public byte[]? photo { get; set; }
 
 		//  Calculated properties:
@@ -41,6 +45,7 @@ namespace Academy.Models
 		{
 			get => $"{last_name} {first_name} {middle_name}";
 		}
+		[Display(Name = "Возраст")]
 		public int Age
 		{
 			get => CalculateAge(birth_date);
@@ -71,6 +76,7 @@ namespace Academy.Models
 
 		//Navigation properties
 
+		[Display(Name = "Группа")]
 		public Group? Group { get; set; }
 	}
 }
