@@ -16,6 +16,17 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.direction_name)
         </dd>
+        <hr />
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Groups)
+        </dt>
+        <dd class ="col-sm-2">
+            @foreach(Group group in Model.Groups)
+                {
+                <p>@group.group_name</p>
+                }
+        </dd>
+        <hr />
     </dl>
 </div>
 <div>

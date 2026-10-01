@@ -34,6 +34,7 @@ namespace Academy.Controllers
             }
 
             var direction = await _context.Directions
+                .Include(g=>g.Groups)
                 .FirstOrDefaultAsync(m => m.DirectionID == id);
             if (direction == null)
             {
