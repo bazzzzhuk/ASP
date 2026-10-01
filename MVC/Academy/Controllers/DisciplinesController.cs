@@ -22,7 +22,7 @@ namespace Academy.Controllers
         // GET: Disciplines
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Discipline.ToListAsync());
+            return View(await _context.Disciplines.ToListAsync());
         }
 
         // GET: Disciplines/Details/5
@@ -33,7 +33,7 @@ namespace Academy.Controllers
                 return NotFound();
             }
 
-            var discipline = await _context.Discipline
+            var discipline = await _context.Disciplines
                 .FirstOrDefaultAsync(m => m.disciplineID == id);
             if (discipline == null)
             {
@@ -73,7 +73,7 @@ namespace Academy.Controllers
                 return NotFound();
             }
 
-            var discipline = await _context.Discipline.FindAsync(id);
+            var discipline = await _context.Disciplines.FindAsync(id);
             if (discipline == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace Academy.Controllers
                 return NotFound();
             }
 
-            var discipline = await _context.Discipline
+            var discipline = await _context.Disciplines
                 .FirstOrDefaultAsync(m => m.disciplineID == id);
             if (discipline == null)
             {
@@ -139,10 +139,10 @@ namespace Academy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var discipline = await _context.Discipline.FindAsync(id);
+            var discipline = await _context.Disciplines.FindAsync(id);
             if (discipline != null)
             {
-                _context.Discipline.Remove(discipline);
+                _context.Disciplines.Remove(discipline);
             }
 
             await _context.SaveChangesAsync();
@@ -151,7 +151,7 @@ namespace Academy.Controllers
 
         private bool DisciplineExists(int id)
         {
-            return _context.Discipline.Any(e => e.disciplineID == id);
+            return _context.Disciplines.Any(e => e.disciplineID == id);
         }
     }
 }

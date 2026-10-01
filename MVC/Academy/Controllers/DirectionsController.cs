@@ -22,7 +22,7 @@ namespace Academy.Controllers
         // GET: Directions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Direction.ToListAsync());
+            return View(await _context.Directions.ToListAsync());
         }
 
         // GET: Directions/Details/5
@@ -33,7 +33,7 @@ namespace Academy.Controllers
                 return NotFound();
             }
 
-            var direction = await _context.Direction
+            var direction = await _context.Directions
                 .FirstOrDefaultAsync(m => m.DirectionID == id);
             if (direction == null)
             {
@@ -73,7 +73,7 @@ namespace Academy.Controllers
                 return NotFound();
             }
 
-            var direction = await _context.Direction.FindAsync(id);
+            var direction = await _context.Directions.FindAsync(id);
             if (direction == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace Academy.Controllers
                 return NotFound();
             }
 
-            var direction = await _context.Direction
+            var direction = await _context.Directions
                 .FirstOrDefaultAsync(m => m.DirectionID == id);
             if (direction == null)
             {
@@ -139,10 +139,10 @@ namespace Academy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var direction = await _context.Direction.FindAsync(id);
+            var direction = await _context.Directions.FindAsync(id);
             if (direction != null)
             {
-                _context.Direction.Remove(direction);
+                _context.Directions.Remove(direction);
             }
 
             await _context.SaveChangesAsync();
@@ -151,7 +151,7 @@ namespace Academy.Controllers
 
         private bool DirectionExists(int id)
         {
-            return _context.Direction.Any(e => e.DirectionID == id);
+            return _context.Directions.Any(e => e.DirectionID == id);
         }
     }
 }

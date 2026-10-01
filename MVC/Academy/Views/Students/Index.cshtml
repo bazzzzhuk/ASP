@@ -13,7 +13,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.group)
+                @Html.DisplayNameFor(model => model.last_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.first_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.middle_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.birth_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.phone)
+            </th>
+            @* <th>
+                @Html.DisplayNameFor(model => model.photo)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.Group)
             </th>
             <th></th>
         </tr>
@@ -22,7 +43,40 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.group)
+                @Html.DisplayFor(modelItem => item.last_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.first_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.middle_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.birth_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phone)
+            </td>
+           @*  <td>
+                @Html.DisplayFor(modelItem => item.photo)
+            </td> *@
+                <td>
+                    @if (item.photo != null && item.photo.Length > 0)
+                    {
+                        <img src="@Url.Action("GetPhoto", "Students", new { id = item.studID })"
+                             alt="Photo"
+                             style="max-width: 80px; height: auto; border-radius: 4px;" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">No photo</span>
+                    }
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Group.groupID)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.studID">Edit</a> |

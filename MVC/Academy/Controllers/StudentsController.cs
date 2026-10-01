@@ -22,7 +22,8 @@ namespace Academy.Controllers
         // GET: Students
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Student.ToListAsync());
+            var academyContext = _context.Students.Include(s => s.Group);
+            return View(await academyContext.ToListAsync());
         }
 
         // GET: Students/Details/5
@@ -33,7 +34,8 @@ namespace Academy.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Student
+            var student = await _context.Students
+                .Include(s => s.Group)
                 .FirstOrDefaultAsync(m => m.studID == id);
             if (student == null)
             {
@@ -46,6 +48,7 @@ namespace Academy.Controllers
         // GET: Students/Create
         public IActionResult Create()
         {
+            ViewData["group"] = new SelectList(_context.Groups, "groupID", "groupID");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace Academy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("studID,group")] Student student)
+        public async Task<IActionResult> Create([Bind("studID,last_name,first_name,middle_name,birth_date,email,phone,photo,group")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace Academy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["group"] = new SelectList(_context.Groups, "groupID", "groupID", student.group);
             return View(student);
         }
 
@@ -73,11 +77,12 @@ namespace Academy.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Student.FindAsync(id);
+            var student = await _context.Students.FindAsync(id);
             if (student == null)
             {
                 return NotFound();
             }
+            ViewData["group"] = new SelectList(_context.Groups, "groupID", "groupID", student.group);
             return View(student);
         }
 
@@ -86,7 +91,7 @@ namespace Academy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("studID,group")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("studID,last_name,first_name,middle_name,birth_date,email,phone,photo,group")] Student student)
         {
             if (id != student.studID)
             {
@@ -113,6 +118,7 @@ namespace Academy.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["group"] = new SelectList(_context.Groups, "groupID", "groupID", student.group);
             return View(student);
         }
 
@@ -124,7 +130,8 @@ namespace Academy.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Student
+            var student = await _context.Students
+                .Include(s => s.Group)
                 .FirstOrDefaultAsync(m => m.studID == id);
             if (student == null)
             {
@@ -139,10 +146,10 @@ namespace Academy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var student = await _context.Student.FindAsync(id);
+            var student = await _context.Students.FindAsync(id);
             if (student != null)
             {
-                _context.Student.Remove(student);
+                _context.Students.Remove(student);
             }
 
             await _context.SaveChangesAsync();
@@ -151,7 +158,20 @@ namespace Academy.Controllers
 
         private bool StudentExists(int id)
         {
-            return _context.Student.Any(e => e.studID == id);
+            return _context.Students.Any(e => e.studID == id);
         }
-    }
+		public async Task<IActionResult> GetPhoto(int id)
+		{
+			var student = await _context.Students.FindAsync(id);
+
+			// Если фото нет или студент не найден — возвращаем заглушку или 404
+			if (student?.photo == null)
+				return PhysicalFile("wwwroot/images/no-photo.png", "image/png");
+			// Или: return NotFound();
+
+			// Важно: второй параметр — MIME-тип. Если храните разные форматы, 
+			// лучше добавить в модель свойство PhotoContentType и использовать его.
+			return File(student.photo, "image/jpeg");
+		}
+	}
 }

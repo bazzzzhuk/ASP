@@ -3,13 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Academy.Models
 {
-	public class Student:Human
+	public class Human
 	{
-		[Key]
-		[Column("stud_id")]
 		[Required]
-		public int studID { get; set; }
-
 		[StringLength(50, MinimumLength = 2)]
 		//[RegularExpression("^[A-ZА-Я][a-zа-я]+$")]
 		public string last_name { get; set; }
@@ -64,13 +60,5 @@ namespace Academy.Models
 
 			return age;
 		}
-
-		[Required]
-		[ForeignKey(nameof(Group))]
-		public int? group { get; set; }
-
-		//Navigation properties
-
-		public Group? Group { get; set; }
 	}
 }
