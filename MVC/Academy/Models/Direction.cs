@@ -1,8 +1,11 @@
-﻿namespace Academy.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Academy.Models
 {
 	public class Direction
 	{
-		public int Direction_id { get; set; }
+		[Key]
+		public int DirectionID { get; set; }
 		public string? direction_name { get; set; }
 
 		public ICollection<Group>? Groups { get; set; }

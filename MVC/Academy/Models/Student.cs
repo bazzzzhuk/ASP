@@ -5,7 +5,8 @@ namespace Academy.Models
 {
 	public class Student
 	{
-		public int stud_id { get; set; }
+		[Key]
+		public int studID { get; set; }
 		public int? group { get; set; }
 		//Navigation properties
 		public Group? Group { get; set; }

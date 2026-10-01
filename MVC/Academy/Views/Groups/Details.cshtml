@@ -1,0 +1,48 @@
+﻿@model Academy.Models.Group
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Group</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.group_name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.group_name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.direction)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.direction)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.weekdays)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.weekdays)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.start_time)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.start_time)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.start_date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.start_date)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.groupID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

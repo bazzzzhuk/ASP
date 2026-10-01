@@ -5,7 +5,8 @@ namespace Academy.Models
 {
 	public class Group
 	{
-		public int group_id { get; set; }
+		[Key]
+		public int groupID { get; set; }
 		public string? group_name { get; set; }
 		public int? direction { get; set; }
 		public int? weekdays { get; set; }
