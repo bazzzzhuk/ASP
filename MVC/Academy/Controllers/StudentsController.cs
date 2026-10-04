@@ -25,9 +25,10 @@ namespace Academy.Controllers
         {
 			ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 			ViewData["DateSortParam"] = sortOrder == "Date" ? "date_desc" : "Date";
+            //ViewData["AgeSortParam"]
 			ViewData["CurrentFilter"] = searchString;
 
-			IQueryable<Student> students = from student in _context.Students select student;
+			IQueryable<Student> students = (from student in _context.Students select student).Include(s => s.Group);
 
 			if (!String.IsNullOrEmpty(searchString))
 			{
@@ -43,7 +44,6 @@ namespace Academy.Controllers
 				default: students = students.OrderBy(s => s.last_name); break;
 			}
 			return View(await students.AsNoTracking().ToListAsync());
-			//var academyContext = _context.Students.Include(s => s.Group);
             //return View(await academyContext.ToListAsync());
         }
 

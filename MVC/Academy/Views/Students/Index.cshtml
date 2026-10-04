@@ -100,7 +100,9 @@
 				@Html.DisplayNameFor(model => model.middle_name)
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.birth_date)
+				<a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParam"]">
+					@Html.DisplayNameFor(model => model.birth_date)
+				</a>
 			</th>
 			<th>
 				@Html.DisplayNameFor(model => model.Age)
