@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Academy.Data;
 using Academy.Models;
+using Microsoft.Data.SqlClient;
 
 namespace Academy.Controllers
 {
@@ -20,10 +21,30 @@ namespace Academy.Controllers
         }
 
         // GET: Students
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            var academyContext = _context.Students.Include(s => s.Group);
-            return View(await academyContext.ToListAsync());
+			ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+			ViewData["DateSortParam"] = sortOrder == "Date" ? "date_desc" : "Date";
+			ViewData["CurrentFilter"] = searchString;
+
+			IQueryable<Student> students = from student in _context.Students select student;
+
+			if (!String.IsNullOrEmpty(searchString))
+			{
+				students = students.Where
+					(s => s.last_name.Contains(searchString) || s.first_name.Contains(searchString));
+			}
+
+			switch (sortOrder)
+			{
+				case "name_desc": students = students.OrderByDescending(s => s.last_name); break;
+				case "date_desc": students = students.OrderByDescending(s => s.birth_date); break;
+				case "Date": students = students.OrderBy(s => s.birth_date); break;
+				default: students = students.OrderBy(s => s.last_name); break;
+			}
+			return View(await students.AsNoTracking().ToListAsync());
+			//var academyContext = _context.Students.Include(s => s.Group);
+            //return View(await academyContext.ToListAsync());
         }
 
         // GET: Students/Details/5

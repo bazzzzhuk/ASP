@@ -13,31 +13,31 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Last_name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First_name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Middle_name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BirthDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Photo)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Work_since)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Rate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.last_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.first_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.middle_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.birth_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.photo)
             </th>
             <th></th>
         </tr>
@@ -46,32 +46,44 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Last_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.First_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Middle_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Photo)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Work_since)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Rate)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.last_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.first_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.middle_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.birth_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phone)
+            </td>
+           @*  <td>
+                @Html.DisplayFor(modelItem => item.photo)
+            </td> *@
+                <td>
+                    @if (item.photo != null && item.photo.Length > 0)
+                    {
+                        <img src="@Url.Action("GetPhoto", "Teachers", new { id = item.TeacherID })"
+                             alt="Photo"
+                             style="max-width: 80px; height: auto; border-radius: 4px;" />
+                    }
+                    else
+                    {
+                        <span class="text-light-emphasis">No photo</span>
+                    }
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.TeacherID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.TeacherID">Details</a> |

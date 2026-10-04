@@ -1,152 +1,174 @@
 ﻿@model IEnumerable<Academy.Models.Student>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
 <style>
-    /* Чёрный фон страницы */
-    body {
-        background-color: midnightblue !important;
-        color: #ffffff !important;
-    }
+	/* Чёрный фон страницы */
+	body {
+		background-color: midnightblue !important;
+		color: #ffffff !important;
+	}
 
-    /* Контейнер Bootstrap — тоже затемняем */
-    .container, .container-fluid {
-        color: #e0e0e0 !important;
-    }
+	/* Контейнер Bootstrap — тоже затемняем */
+	.container, .container-fluid {
+		color: #e0e0e0 !important;
+	}
 
-    /* Заголовки — белый цвет */
-    h1, h2, h3, .page-header {
-        color: #ffffff !important;
-    }
+	/* Заголовки — белый цвет */
+	h1, h2, h3, .page-header {
+		color: #ffffff !important;
+	}
 
-    /* Таблица: используем table-dark и докручиваем цвета */
-    .table-dark {
-        --bs-table-color: #f0f0f0;
-        --bs-table-bg: #111111;
-        --bs-table-border-color: #444444;
-    }
+	/* Таблица: используем table-dark и докручиваем цвета */
+	.table-dark {
+		--bs-table-color: #f0f0f0;
+		--bs-table-bg: #111111;
+		--bs-table-border-color: #444444;
+	}
 
-        .table-dark th {
-            border-color: #555555;
-        }
+		.table-dark th {
+			border-color: #555555;
+		}
 
-        .table-dark td {
-            border-color: #333333;
-        }
+		.table-dark td {
+			border-color: #333333;
+		}
 
-    /* Кнопки */
-    .btn {
-        color: #ffffff;
-        background-color: #333333;
-        border-color: #555555;
-    }
+	/* Кнопки */
+	.btn {
+		color: #ffffff;
+		background-color: #333333;
+		border-color: #555555;
+	}
 
-        .btn:hover {
-            background-color: #555555;
-            color: #ffffff;
-        }
+		.btn:hover {
+			background-color: #555555;
+			color: #ffffff;
+		}
 
-    /* Формы (если есть) */
-    .form-control {
-        background-color: #1a1a1a;
-        color: #ffffff;
-        border-color: #444444;
-    }
+	/* Формы (если есть) */
+	.form-control {
+		background-color: #1a1a1a;
+		color: #ffffff;
+		border-color: #444444;
+	}
 
-        .form-control:focus {
-            border-color: #666666;
-            box-shadow: 0 0 5px rgba(255,255,255,0.2);
-        }
+		.form-control:focus {
+			border-color: #666666;
+			box-shadow: 0 0 5px rgba(255,255,255,0.2);
+		}
 </style>
 
 <h1>Студенты</h1>
 
 <p>
-    <a asp-action="Create">Создать нового студента ♂ ♀</a>
+	<a asp-action="Create">Создать нового студента ♂ ♀</a>
 </p>
+
+<div>
+	<h1>Students</h1>
+
+	<p>
+		<a asp-action="Create" class="btn btn-dark">Create New</a>
+	</p>
+</div>
+
+<div>
+	<form asp-action="Index" method="get">
+		<div>
+			<label>Поиск по-имени:<input type="search" name="SearchString" value="@ViewData["CurrentParam"]"></input></label>
+			<input type="submit" value="Найти" class="btn btn-primary" />
+			<a asp-action="Index" class="btn btn-secondary">Сброс</a>
+		</div>
+	</form>
+</div>
+
 <table class="table table-dark table-hover table-bordered">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.last_name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.first_name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.middle_name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.birth_date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Age)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.photo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Group)
-            </th>
-            <th>Навигация</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.last_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.first_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.middle_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.birth_date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.phone)
-            </td>
-           @*  <td>
+	<thead>
+		<tr>
+			<th>
+				<a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]">
+					@Html.DisplayNameFor(model => model.last_name)
+				</a>
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.first_name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.middle_name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.birth_date)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Age)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.email)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.phone)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.photo)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Group)
+			</th>
+			<th>Навигация</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.last_name)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.first_name)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.middle_name)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.birth_date)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Age)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.email)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.phone)
+				</td>
+				@*  <td>
                 @Html.DisplayFor(modelItem => item.photo)
             </td> *@
-                <td>
-                    @if (item.photo != null && item.photo.Length > 0)
-                    {
-                        <img src="@Url.Action("GetPhoto", "Students", new { id = item.studID })"
-                             alt="Photo"
-                             style="max-width: 80px; height: auto; border-radius: 4px;" />
-                    }
-                    else
-                    {
-                        <span class="text-light-emphasis">No photo</span>
-                    }
-                </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Group.group_name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.studID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.studID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.studID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
+				<td>
+					@if (item.photo != null && item.photo.Length > 0)
+					{
+						<img src="@Url.Action("GetPhoto", "Students", new { id = item.studID })"
+							 alt="Photo"
+							 style="max-width: 80px; height: auto; border-radius: 4px;" />
+					}
+					else
+					{
+						<span class="text-light-emphasis">No photo</span>
+					}
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Group.group_name)
+				</td>
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.studID">Edit</a> |
+					<a asp-action="Details" asp-route-id="@item.studID">Details</a> |
+					<a asp-action="Delete" asp-route-id="@item.studID">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>

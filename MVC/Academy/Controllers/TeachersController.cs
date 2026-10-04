@@ -54,7 +54,7 @@ namespace Academy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TeacherID,Last_name,First_name,Middle_name,BirthDate,Email,Phone,Photo,Work_since,Rate")] Teacher teacher)
+        public async Task<IActionResult> Create([Bind("TeacherID,Work_since,Rate,last_name,first_name,middle_name,birth_date,email,phone,photo")] Teacher teacher)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Academy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TeacherID,Last_name,First_name,Middle_name,BirthDate,Email,Phone,Photo,Work_since,Rate")] Teacher teacher)
+        public async Task<IActionResult> Edit(int id, [Bind("TeacherID,Work_since,Rate,last_name,first_name,middle_name,birth_date,email,phone,photo")] Teacher teacher)
         {
             if (id != teacher.TeacherID)
             {
@@ -153,5 +153,18 @@ namespace Academy.Controllers
         {
             return _context.Teachers.Any(e => e.TeacherID == id);
         }
-    }
+		public async Task<IActionResult> GetPhoto(int id)
+		{
+			var teacher = await _context.Teachers.FindAsync(id);
+
+			// Если фото нет или студент не найден — возвращаем заглушку или 404
+			if (teacher?.photo == null)
+				return PhysicalFile("wwwroot/images/no-photo.png", "image/png");
+			// Или: return NotFound();
+
+			// Важно: второй параметр — MIME-тип. Если храните разные форматы, 
+			// лучше добавить в модель свойство PhotoContentType и использовать его.
+			return File(teacher.photo, "image/jpeg");
+		}
+	}
 }

@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<ContosoUniversity.Models.Student>
-
+<link rel="stylesheet" href="~/css/controls.css" asp-append-version="true" />
 @{
     ViewData["Title"] = "Index";
 }
@@ -27,7 +27,8 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]"> @Html.DisplayNameFor(model => model.LastName)</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]"> 
+                    @Html.DisplayNameFor(model => model.LastName)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
