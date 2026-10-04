@@ -105,7 +105,9 @@
 				</a>
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.Age)
+				<a asp-action="Index" asp-route-sortOrder="@ViewData["AgeSortParam"]">
+					@Html.DisplayNameFor(model => model.Age)
+				</a>
 			</th>
 			<th>
 				@Html.DisplayNameFor(model => model.email)
