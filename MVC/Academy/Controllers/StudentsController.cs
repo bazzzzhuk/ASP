@@ -23,15 +23,11 @@ namespace Academy.Controllers
         // GET: Students
         public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-			ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-			ViewData["DateSortParam"] = sortOrder == "Date" ? "date_desc" : "Date";
-			ViewData["AgeSortParam"] = sortOrder switch
-			{
-				"age_asc" => "age_desc",
-				"age_desc" => "age_asc",
-				_ => "age_asc"
-			};
-			ViewData["CurrentFilter"] = searchString;
+			ViewData["NameSortParam"]  = String.IsNullOrEmpty(sortOrder)? "name_desc"   : "";
+			ViewData["DateSortParam"]  = sortOrder == "Date"            ? "date_desc"   : "Date";
+            ViewData["AgeSortParam"]   = sortOrder == "age_asc"         ? "age_desc"    : "age_asc";
+            ViewData["GroupSortParam"] = sortOrder == "group_asc"       ? "group_desc"  : "group_asc";
+			ViewData["CurrentFilter"]  = searchString;
 
 			IQueryable<Student> students = (from student in _context.Students select student).Include(s => s.Group);
 
@@ -43,12 +39,14 @@ namespace Academy.Controllers
 
 			switch (sortOrder)
 			{
-				case "name_desc":   students = students.OrderByDescending (s => s.last_name); break;
-				case "date_desc":   students = students.OrderByDescending (s => s.birth_date);break;
-				case "Date":        students = students.OrderBy           (s => s.birth_date);break;
-				case "age_asc":	    students = students.OrderBy           (s => s.birth_date);break;
-				case "age_desc":    students = students.OrderByDescending (s => s.birth_date);break;
-				default:            students = students.OrderBy           (s => s.last_name); break;
+				case "name_desc":   students = students.OrderByDescending (s => s.last_name);       break;
+				case "date_desc":   students = students.OrderByDescending (s => s.birth_date);      break;
+				case "Date":        students = students.OrderBy           (s => s.birth_date);      break;
+				case "age_asc":	    students = students.OrderBy           (s => s.birth_date);      break;
+				case "age_desc":    students = students.OrderByDescending (s => s.birth_date);      break;
+				case "group_asc":   students = students.OrderBy           (s => s.Group.group_name);break;
+				case "group_desc":  students = students.OrderByDescending (s => s.Group.group_name);break;
+				default:            students = students.OrderBy           (s => s.last_name);       break;
 			}
 			return View(await students.AsNoTracking().ToListAsync());
             //return View(await academyContext.ToListAsync());
