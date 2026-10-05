@@ -1,0 +1,10 @@
+﻿.paginator
+{
+	min-height:67vh;
+}
+.paginator-controls
+{
+	display:flex;
+	justify-content:space-evenly;
+	align-items:center;
+}
