@@ -1,0 +1,13 @@
+﻿.paginator {
+	min-height: 167vh;
+}
+
+.paginator-controls {
+	position: sticky;
+	bottom: -30px;
+	display: flex;
+	justify-content: space-evenly;
+	margin: 0;
+	padding: 0px 0px  40px 0px ; /* отступ */
+	/*margin-bottom: 30px;*/
+}
