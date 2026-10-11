@@ -42,7 +42,7 @@ namespace ContosoUniversity.Controllers
 				case "Date":		students = students.OrderBy(s => s.EnrollmentDate);			break;
 				default:			students = students.OrderBy(s => s.LastName);				break;
 			}
-			int pageSize = 5;
+			int pageSize = 2;
 			return View(
 				await PaginatedList<Student>.CreateAsync
 					(students.AsNoTracking()

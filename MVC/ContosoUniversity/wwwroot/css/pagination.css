@@ -8,3 +8,21 @@
 	justify-content:space-evenly;
 	align-items:center;
 }
+.pages, .page
+{
+	display:flex;
+	justify-content:space-around;
+	align-items:center;
+}
+.page
+{
+	width:32px;;
+	height:32px;
+	border:solid 1px gray;
+	margin:8px;
+}
+.current-page
+{
+	border:solid 1px black;
+	box-shadow: 0px 0px 8px 3px black;
+}
