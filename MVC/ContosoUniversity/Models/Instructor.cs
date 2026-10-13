@@ -4,7 +4,7 @@ namespace ContosoUniversity.Models
 {
 	public class Instructor
 	{
-		public string ID { get; set; }
+		public int ID { get; set; }
 		[Required]
 		[StringLength(50)]
 		[Display(Name ="Фамилия")]
