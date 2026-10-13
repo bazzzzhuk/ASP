@@ -12,6 +12,6 @@ namespace ContosoUniversity.Models
 
 		//Nav properties:
 
-	public Instructor Instructor { get; set; }	
+		public Instructor Instructor { get; set; }
 	}
 }
