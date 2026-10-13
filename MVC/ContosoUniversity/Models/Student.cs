@@ -20,7 +20,7 @@ namespace ContosoUniversity.Models
 		//Calc properties:
 
 		[Display(Name ="Студент")]
-		public string FullNme
+		public string FullName
 		{
 			get => $"{LastName} {FirstName}";
 		}
