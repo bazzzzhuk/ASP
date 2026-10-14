@@ -29,23 +29,23 @@ namespace ContosoUniversity.Controllers
 					.ThenInclude(ca => ca.Course)
 						.ThenInclude(c => c.Enrollments)
 							.ThenInclude(e => e.Student)
-				.Include(i=>i.CourseAssignments)
+				.Include(i => i.CourseAssignments)
 					.ThenInclude(i => i.Course)
-						.ThenInclude(i=>i.Department)
+						.ThenInclude(i => i.Department)
 				.AsNoTracking()
-				.OrderBy(i=>i.LastName)
+				.OrderBy(i => i.LastName)
 				.ToListAsync();
 
-			if(id != null)
+			if (id != null)
 			{
 				ViewData["InstructorID"] = id;
 				Instructor instructor = viewModel.Instructors.Where(i => i.ID == id.Value).Single();
 				viewModel.Courses = instructor.CourseAssignments.Select(ca => ca.Course);
 			}
 
-			if(courseID!=null)
+			if (courseID != null)
 			{
-				ViewData["CourseID"]=courseID.Value;
+				ViewData["CourseID"] = courseID.Value;
 				viewModel.Enrollments = viewModel.Courses.Where(c => c.CourseID == courseID)
 					.Single().Enrollments;
 			}
@@ -61,7 +61,9 @@ namespace ContosoUniversity.Controllers
 				return NotFound();
 			}
 
-			var instructor = await _context.Instructors
+			var instructor = await _context
+				.Instructors
+				.Include(i => i.OfficeAssignment)
 				.FirstOrDefaultAsync(m => m.ID == id);
 			if (instructor == null)
 			{
@@ -101,7 +103,11 @@ namespace ContosoUniversity.Controllers
 				return NotFound();
 			}
 
-			var instructor = await _context.Instructors.FindAsync(id);
+			var instructor = await _context
+				.Instructors
+				.Include(i => i.OfficeAssignment)
+				.AsNoTracking()
+				.FirstOrDefaultAsync(i => i.ID == id);
 			if (instructor == null)
 			{
 				return NotFound();
@@ -121,27 +127,53 @@ namespace ContosoUniversity.Controllers
 				return NotFound();
 			}
 
-			if (ModelState.IsValid)
+			instructor = await _context
+				.Instructors
+				.Include(i => i.OfficeAssignment)
+				.FirstOrDefaultAsync(i => i.ID == id);
+
+			//if (ModelState.IsValid)
+			//{
+			//	try
+			//	{
+			//		_context.Update(instructor);
+			//		await _context.SaveChangesAsync();
+			//	}
+			//	catch (DbUpdateConcurrencyException)
+			//	{
+			//		if (!InstructorExists(instructor.ID))
+			//		{
+			//			return NotFound();
+			//		}
+			//		else
+			//		{
+			//			throw;
+			//		}
+			//	}
+			//	return RedirectToAction(nameof(Index));
+			//}
+
+			Task<bool> ok = TryUpdateModelAsync<Instructor>
+				(
+				instructor,
+				"",
+				i => i.FirstName, i => i.LastName, i => i.HireDate, i => i.OfficeAssignment
+				);
+			if (ok.IsCompleted)
 			{
+				if (String.IsNullOrWhiteSpace(instructor.OfficeAssignment?.Location)) instructor.OfficeAssignment = null;
 				try
 				{
-					_context.Update(instructor);
 					await _context.SaveChangesAsync();
 				}
-				catch (DbUpdateConcurrencyException)
+				catch (DbUpdateException ex)
 				{
-					if (!InstructorExists(instructor.ID))
-					{
-						return NotFound();
-					}
-					else
-					{
-						throw;
-					}
+					ModelState.AddModelError("", "Невозможно обновить данные");
+					return View(instructor);
 				}
-				return RedirectToAction(nameof(Index));
 			}
-			return View(instructor);
+			return Redirect($"/instructors/Details/{instructor.ID}");
+			//return View(instructor);
 		}
 
 		// GET: Instructors/Delete/5

@@ -16,6 +16,7 @@
 			<th>Last Name</th>
 			<th>First Name</th>
 			<th>Hire Date</th>
+			<th></th>
 			<th>Office</th>
 			<th>Courses</th>
 			@* <th>
@@ -45,6 +46,7 @@
 				<td>
 					@Html.DisplayFor(modelItem => item.HireDate)
 				</td>
+
 				<td>
 					<a asp-action="Index" asp-route-id="@item.ID">Select</a> |
 					<a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

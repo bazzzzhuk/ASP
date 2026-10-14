@@ -8,10 +8,10 @@ namespace ContosoUniversity.Models
 		[Required]
 		[StringLength(50)]
 		[Display(Name ="Фамилия")]
-		public string LastName { get; set; }
+		public string? LastName { get; set; }
 		[Required,StringLength(50)]
 		[Display(Name ="Имя")]
-		public string FirstName { get; set; }
+		public string? FirstName { get; set; }
 		[DataType(DataType.Date)]
 		[DisplayFormat(DataFormatString ="{0:yyyy-MM-dd}",ApplyFormatInEditMode =true)]
 		[Display(Name =	"Дата трудоустройства")]
