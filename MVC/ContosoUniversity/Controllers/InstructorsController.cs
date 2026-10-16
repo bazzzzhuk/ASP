@@ -129,14 +129,16 @@ namespace ContosoUniversity.Controllers
 		//public async Task<IActionResult> Edit(int id, [Bind("ID,LastName,FirstName,HireDate")] Instructor instructor)
 		public async Task<IActionResult> Edit(int id, string[] selectedCourses)
 		{
-			if (id != null)
-			{
-				return NotFound();
-			}
+			//if (id != null)
+			//{
+			//	return NotFound();
+			//}
 
 			Instructor instructor = await _context
 				.Instructors
 				.Include(i => i.OfficeAssignment)
+				.Include(i => i.CourseAssignments)
+					.ThenInclude(ca=>ca.Course)
 				.FirstOrDefaultAsync(i => i.ID == id);
 
 			/*if (ModelState.IsValid)
@@ -252,6 +254,18 @@ namespace ContosoUniversity.Controllers
 				instructor.CourseAssignments = new List<CourseAssignment>();
 				return;
 			}
+			Course[] allCourses = _context.Courses.ToArray();
+			Course[] courses = new Course[selectedCourses.Length];
+			ICollection<CourseAssignment> courseAssignments = new List<CourseAssignment>();
+			for (int i = 0; i < courses.Length; i++)
+			{
+				courses[i] = allCourses.Where(c => c.CourseID.ToString() == selectedCourses[i]).First();
+				courseAssignments.Add(new CourseAssignment { CourseID = courses[i].CourseID, InstructorID = instructor.ID });
+			}
+			instructor.CourseAssignments = courseAssignments;
+
+			return;
+
 			HashSet<string> selectedCoursesHS = new HashSet<string>(selectedCourses);
 			HashSet<int> instructorCoursesHS = new HashSet<int>
 				(
